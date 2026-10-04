@@ -1,0 +1,5163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Sourabh Lagali — DevOps & Cloud Engineer</title>
+
+<meta
+    name="description"
+    content="Sourabh Lagali — DevOps & Cloud Engineer based in Bangalore, focused on Linux, AWS, Docker, Kubernetes, Terraform, CI/CD and cloud infrastructure."
+>
+
+<meta name="theme-color" content="#f7f8fc">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+>
+
+<style>
+
+/* =========================================================
+   RESET
+========================================================= */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: "DM Sans", sans-serif;
+    background: #f7f8fc;
+    color: #101117;
+    line-height: 1.5;
+    overflow-x: hidden;
+}
+
+body.no-scroll {
+    overflow: hidden;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+button,
+a {
+    font: inherit;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+button {
+    border: 0;
+    background: none;
+    cursor: pointer;
+}
+
+::selection {
+    background: #ff3ea5;
+    color: white;
+}
+
+
+/* =========================================================
+   VARIABLES
+========================================================= */
+
+:root {
+
+    --bg: #f7f8fc;
+    --white: #ffffff;
+
+    --ink: #101117;
+    --muted: #626775;
+    --soft: #9095a3;
+
+    --blue: #2557ff;
+    --blue-deep: #123ad1;
+
+    --pink: #ff3ea5;
+    --pink-light: #ff84c8;
+
+    --cyan: #19c8ff;
+
+    --line: rgba(16,17,23,.09);
+
+    --glass:
+        rgba(255,255,255,.65);
+
+    --glass-strong:
+        rgba(255,255,255,.82);
+
+    --shadow:
+        0 30px 90px rgba(25,35,80,.10);
+
+    --shadow-sm:
+        0 14px 40px rgba(25,35,80,.07);
+
+    --radius-xl: 34px;
+    --radius-lg: 24px;
+    --radius-md: 18px;
+
+    --max: 1240px;
+}
+
+
+/* =========================================================
+   CURSOR
+========================================================= */
+
+.cursor-dot,
+.cursor-ring {
+    position: fixed;
+    pointer-events: none;
+    z-index: 99999;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.cursor-dot {
+    width: 8px;
+    height: 8px;
+    background: #111;
+    transition: transform .12s ease;
+}
+
+.cursor-ring {
+    width: 38px;
+    height: 38px;
+    border: 1px solid rgba(37,87,255,.45);
+    transition:
+        width .25s ease,
+        height .25s ease,
+        background .25s ease,
+        border-color .25s ease;
+}
+
+.cursor-ring.hover {
+    width: 68px;
+    height: 68px;
+    background: rgba(37,87,255,.08);
+    border-color: rgba(255,62,165,.65);
+}
+
+@media (max-width: 900px) {
+    .cursor-dot,
+    .cursor-ring {
+        display: none;
+    }
+}
+
+
+/* =========================================================
+   LOADER
+========================================================= */
+
+.loader {
+    position: fixed;
+    inset: 0;
+    z-index: 100000;
+    background: #f7f8fc;
+    display: grid;
+    place-items: center;
+    transition:
+        opacity .8s ease,
+        visibility .8s ease;
+}
+
+.loader.hide {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.loader-inner {
+    width: min(90%, 430px);
+}
+
+.loader-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.loader-name {
+    font-family: "Space Grotesk";
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.loader-percent {
+    font-size: 13px;
+    color: var(--muted);
+}
+
+.loader-line {
+    width: 100%;
+    height: 5px;
+    border-radius: 100px;
+    background: #e8eaf0;
+    overflow: hidden;
+}
+
+.loader-progress {
+    width: 0%;
+    height: 100%;
+    background:
+        linear-gradient(
+            90deg,
+            var(--blue),
+            var(--pink)
+        );
+}
+
+
+/* =========================================================
+   PAGE
+========================================================= */
+
+.container {
+    width: min(calc(100% - 48px), var(--max));
+    margin: auto;
+}
+
+section {
+    position: relative;
+    padding: 130px 0;
+}
+
+
+/* =========================================================
+   NAVBAR
+========================================================= */
+
+.nav-wrap {
+    position: fixed;
+    top: 18px;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.nav {
+    width: min(calc(100% - 30px), 1160px);
+    margin: auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 13px 15px 13px 20px;
+
+    border: 1px solid rgba(255,255,255,.7);
+
+    background:
+        rgba(255,255,255,.72);
+
+    backdrop-filter: blur(22px);
+    -webkit-backdrop-filter: blur(22px);
+
+    box-shadow:
+        0 15px 50px rgba(25,35,80,.08);
+
+    border-radius: 100px;
+
+    transition: .35s ease;
+}
+
+.nav.scrolled {
+    background: rgba(255,255,255,.9);
+    box-shadow: 0 15px 60px rgba(25,35,80,.14);
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.brand-mark {
+    width: 38px;
+    height: 38px;
+    border-radius: 12px;
+
+    display: grid;
+    place-items: center;
+
+    font-family: "Space Grotesk";
+    font-weight: 700;
+    color: white;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--blue),
+            var(--pink)
+        );
+
+    box-shadow:
+        0 7px 25px rgba(37,87,255,.2);
+}
+
+.brand-text {
+    font-family: "Space Grotesk";
+    font-weight: 700;
+    font-size: 15px;
+}
+
+.menu {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+}
+
+.menu a {
+    font-size: 12px;
+    font-weight: 600;
+    color: #5b6070;
+
+    position: relative;
+}
+
+.menu a::after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -7px;
+    left: 0;
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--blue),
+            var(--pink)
+        );
+
+    transition: .25s ease;
+}
+
+.menu a:hover {
+    color: var(--ink);
+}
+
+.menu a:hover::after {
+    width: 100%;
+}
+
+.resume-nav {
+    padding: 11px 17px;
+    border-radius: 100px;
+
+    background: #111;
+    color: white !important;
+
+    transition: .3s;
+}
+
+.resume-nav:hover {
+    transform: translateY(-2px);
+    background: var(--blue);
+}
+
+.mobile-btn {
+    display: none;
+
+    width: 42px;
+    height: 42px;
+
+    border-radius: 50%;
+    border: 1px solid var(--line);
+
+    background: white;
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero {
+    min-height: 100vh;
+    padding-top: 170px;
+    overflow: hidden;
+}
+
+.hero-grid-lines {
+    position: absolute;
+    inset: 0;
+
+    background-image:
+        linear-gradient(
+            rgba(16,17,23,.035) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(16,17,23,.035) 1px,
+            transparent 1px
+        );
+
+    background-size: 70px 70px;
+
+    mask-image:
+        linear-gradient(
+            to bottom,
+            black 20%,
+            transparent 88%
+        );
+
+    pointer-events: none;
+}
+
+.hero-orb {
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+
+    top: 160px;
+    right: -260px;
+
+    background:
+        radial-gradient(
+            circle at 35% 35%,
+            rgba(255,62,165,.34),
+            rgba(37,87,255,.15) 40%,
+            transparent 70%
+        );
+
+    filter: blur(20px);
+    pointer-events: none;
+
+    animation:
+        floatOrb 10s ease-in-out infinite;
+}
+
+.hero-orb.two {
+    width: 480px;
+    height: 480px;
+
+    left: -300px;
+    top: 430px;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(37,87,255,.17),
+            transparent 70%
+        );
+
+    animation-delay: -3s;
+}
+
+@keyframes floatOrb {
+    0%,100% {
+        transform: translate3d(0,0,0) scale(1);
+    }
+
+    50% {
+        transform: translate3d(-30px,25px,0) scale(1.08);
+    }
+}
+
+.hero-grid {
+    display: grid;
+    grid-template-columns:
+        minmax(0, 1.1fr)
+        minmax(380px, .9fr);
+
+    gap: 70px;
+    align-items: center;
+}
+
+.hero-kicker {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    margin-bottom: 30px;
+
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 2.6px;
+    font-weight: 700;
+}
+
+.live-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+
+    background: #27c76f;
+    box-shadow:
+        0 0 0 6px rgba(39,199,111,.12);
+
+    animation: livePulse 1.8s infinite;
+}
+
+@keyframes livePulse {
+    50% {
+        box-shadow:
+            0 0 0 12px rgba(39,199,111,0);
+    }
+}
+
+.hero-title {
+    font-family: "Space Grotesk";
+    font-size: clamp(62px, 8.6vw, 132px);
+    line-height: .86;
+    letter-spacing: -7px;
+    font-weight: 700;
+
+    max-width: 1000px;
+
+    text-transform: uppercase;
+}
+
+.hero-title .line {
+    display: block;
+}
+
+.hero-title .blue {
+    color: var(--blue);
+}
+
+.hero-title .pink {
+    color: var(--pink);
+}
+
+.hero-subtitle {
+    margin-top: 38px;
+
+    max-width: 650px;
+
+    font-size: clamp(17px, 2vw, 22px);
+    color: #454a58;
+
+    letter-spacing: -.25px;
+}
+
+.hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+
+    margin-top: 34px;
+}
+
+.button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+
+    min-height: 50px;
+    padding: 0 20px;
+
+    border-radius: 100px;
+
+    font-size: 13px;
+    font-weight: 700;
+
+    transition:
+        transform .3s ease,
+        box-shadow .3s ease,
+        background .3s ease;
+}
+
+.button-primary {
+    color: white;
+
+    background:
+        linear-gradient(
+            120deg,
+            var(--blue),
+            var(--pink)
+        );
+
+    box-shadow:
+        0 15px 35px rgba(37,87,255,.22);
+}
+
+.button-primary:hover {
+    transform: translateY(-4px);
+    box-shadow:
+        0 20px 45px rgba(37,87,255,.30);
+}
+
+.button-light {
+    border: 1px solid var(--line);
+    background: rgba(255,255,255,.7);
+}
+
+.button-light:hover {
+    transform: translateY(-4px);
+    background: white;
+    box-shadow: var(--shadow-sm);
+}
+
+
+/* =========================================================
+   HERO PROFILE
+========================================================= */
+
+.hero-visual {
+    position: relative;
+
+    min-height: 610px;
+}
+
+.profile-photo {
+    position: absolute;
+
+    width: min(100%, 440px);
+    aspect-ratio: .78;
+
+    right: 20px;
+    top: 20px;
+
+    overflow: hidden;
+
+    border-radius: 42px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #e6ecff,
+            #ffe6f4
+        );
+
+    border:
+        1px solid rgba(255,255,255,.9);
+
+    box-shadow:
+        0 40px 100px rgba(26,39,92,.18);
+
+    transform:
+        rotate(3deg);
+}
+
+.profile-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+
+    filter:
+        saturate(1.03)
+        contrast(1.01);
+}
+
+.photo-label {
+    position: absolute;
+    left: 20px;
+    bottom: 20px;
+
+    padding: 11px 14px;
+
+    border-radius: 15px;
+
+    background:
+        rgba(255,255,255,.75);
+
+    backdrop-filter: blur(15px);
+
+    font-size: 11px;
+    font-weight: 700;
+
+    box-shadow:
+        0 12px 30px rgba(20,30,80,.10);
+}
+
+.glass-card {
+    position: absolute;
+
+    border: 1px solid rgba(255,255,255,.85);
+
+    background:
+        rgba(255,255,255,.67);
+
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+
+    box-shadow:
+        0 25px 70px rgba(25,35,80,.10);
+
+    border-radius: 24px;
+}
+
+.card-location {
+    left: 0;
+    bottom: 80px;
+
+    padding: 18px 20px;
+
+    min-width: 200px;
+}
+
+.mini-label {
+    color: var(--soft);
+
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 1.8px;
+    font-weight: 700;
+
+    margin-bottom: 6px;
+}
+
+.card-location strong {
+    font-size: 14px;
+}
+
+.card-terminal {
+    right: 0;
+    bottom: 20px;
+
+    width: 235px;
+
+    padding: 18px;
+
+    font-family: monospace;
+    font-size: 10px;
+
+    animation:
+        terminalFloat 6s ease-in-out infinite;
+}
+
+@keyframes terminalFloat {
+    0%,100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-12px);
+    }
+}
+
+.code-green {
+    color: #15803d;
+}
+
+.code-blue {
+    color: var(--blue);
+}
+
+.code-pink {
+    color: #db2777;
+}
+
+
+/* =========================================================
+   MARQUEE
+========================================================= */
+
+.marquee-section {
+    padding: 0;
+    overflow: hidden;
+
+    background: #101117;
+
+    color: white;
+
+    border-top:
+        1px solid rgba(255,255,255,.08);
+
+    border-bottom:
+        1px solid rgba(255,255,255,.08);
+}
+
+.marquee {
+    display: flex;
+    width: max-content;
+
+    animation:
+        marquee 18s linear infinite;
+}
+
+.marquee span {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+
+    padding: 24px 18px;
+
+    font-family: "Space Grotesk";
+    font-size: clamp(28px, 4vw, 58px);
+
+    font-weight: 700;
+
+    text-transform: uppercase;
+
+    letter-spacing: -1.8px;
+}
+
+.marquee i {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+
+    background: var(--pink);
+}
+
+@keyframes marquee {
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+
+/* =========================================================
+   SECTION HEADING
+========================================================= */
+
+.section-heading {
+    display: grid;
+    grid-template-columns: .7fr 1.3fr;
+    gap: 40px;
+
+    align-items: end;
+
+    margin-bottom: 60px;
+}
+
+.eyebrow {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 2.4px;
+    font-weight: 700;
+    color: var(--blue);
+}
+
+.section-heading h2 {
+    font-family: "Space Grotesk";
+    font-size: clamp(43px, 6vw, 85px);
+
+    line-height: .92;
+
+    letter-spacing: -4px;
+
+    max-width: 900px;
+}
+
+.section-heading p {
+    margin-top: 20px;
+
+    max-width: 680px;
+
+    color: var(--muted);
+
+    font-size: 16px;
+}
+
+
+/* =========================================================
+   ABOUT
+========================================================= */
+
+.about {
+    background: #f7f8fc;
+}
+
+.about-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+}
+
+.about-card {
+    min-height: 430px;
+
+    padding: 42px;
+
+    border-radius: var(--radius-xl);
+
+    border: 1px solid rgba(255,255,255,.9);
+
+    background:
+        rgba(255,255,255,.70);
+
+    backdrop-filter: blur(20px);
+
+    box-shadow: var(--shadow-sm);
+
+    position: relative;
+    overflow: hidden;
+}
+
+.about-card::before {
+    content: "";
+
+    position: absolute;
+
+    width: 270px;
+    height: 270px;
+
+    right: -100px;
+    top: -100px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255,62,165,.19),
+            transparent 70%
+        );
+}
+
+.about-card h3 {
+    font-family: "Space Grotesk";
+
+    font-size: clamp(28px, 3vw, 42px);
+
+    line-height: 1;
+
+    letter-spacing: -1.5px;
+
+    margin-bottom: 22px;
+
+    max-width: 520px;
+}
+
+.about-card p {
+    color: var(--muted);
+
+    max-width: 620px;
+
+    font-size: 15px;
+
+    margin-bottom: 15px;
+}
+
+.about-data {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 12px;
+
+    margin-top: 30px;
+}
+
+.data-item {
+    padding: 15px;
+
+    border: 1px solid var(--line);
+
+    border-radius: 15px;
+
+    background:
+        rgba(255,255,255,.7);
+}
+
+.data-item span {
+    display: block;
+
+    color: var(--soft);
+
+    font-size: 9px;
+
+    text-transform: uppercase;
+
+    letter-spacing: 1.5px;
+
+    margin-bottom: 5px;
+}
+
+.data-item strong {
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   SKILLS
+========================================================= */
+
+.skills {
+    background:
+        linear-gradient(
+            180deg,
+            #f7f8fc 0%,
+            #edf2ff 100%
+        );
+}
+
+.skill-layout {
+    display: grid;
+
+    grid-template-columns:
+        .85fr 1.15fr;
+
+    gap: 25px;
+}
+
+.skill-intro {
+    position: sticky;
+    top: 120px;
+
+    align-self: start;
+
+    padding: 40px;
+
+    border-radius: var(--radius-xl);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(37,87,255,.98),
+            rgba(111,56,255,.93)
+        );
+
+    color: white;
+
+    min-height: 540px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 35px 100px rgba(37,87,255,.18);
+}
+
+.skill-intro::before,
+.skill-intro::after {
+    content: "";
+
+    position: absolute;
+
+    border-radius: 50%;
+
+    pointer-events: none;
+}
+
+.skill-intro::before {
+    width: 300px;
+    height: 300px;
+
+    right: -120px;
+    top: -90px;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255,255,255,.18),
+            transparent 70%
+        );
+}
+
+.skill-intro::after {
+    width: 240px;
+    height: 240px;
+
+    left: -100px;
+    bottom: -90px;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255,62,165,.28),
+            transparent 70%
+        );
+}
+
+.skill-intro h3 {
+    position: relative;
+
+    z-index: 1;
+
+    font-family: "Space Grotesk";
+
+    font-size: 52px;
+
+    line-height: .9;
+
+    letter-spacing: -3px;
+}
+
+.skill-intro p {
+    position: relative;
+
+    z-index: 1;
+
+    margin-top: 25px;
+
+    color: rgba(255,255,255,.77);
+
+    max-width: 390px;
+
+    font-size: 14px;
+}
+
+.skill-number {
+    position: absolute;
+
+    z-index: 1;
+
+    left: 40px;
+    bottom: 35px;
+
+    font-family: "Space Grotesk";
+
+    font-size: 10px;
+
+    letter-spacing: 3px;
+
+    opacity: .65;
+}
+
+.skill-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 14px;
+}
+
+.skill-card {
+    padding: 26px;
+
+    min-height: 190px;
+
+    border-radius: 22px;
+
+    background:
+        rgba(255,255,255,.72);
+
+    border:
+        1px solid rgba(255,255,255,.95);
+
+    box-shadow:
+        0 18px 55px rgba(26,39,92,.06);
+
+    transition:
+        transform .4s ease,
+        box-shadow .4s ease;
+
+    transform-style: preserve-3d;
+}
+
+.skill-card:hover {
+    transform:
+        translateY(-8px)
+        rotateX(1.5deg)
+        rotateY(-1.5deg);
+
+    box-shadow:
+        0 30px 75px rgba(26,39,92,.12);
+}
+
+.skill-card .skill-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 25px;
+}
+
+.skill-icon {
+    width: 45px;
+    height: 45px;
+
+    border-radius: 14px;
+
+    display: grid;
+    place-items: center;
+
+    color: var(--blue);
+
+    background:
+        rgba(37,87,255,.08);
+
+    font-size: 17px;
+
+    font-weight: 800;
+}
+
+.skill-index {
+    font-size: 10px;
+    color: var(--soft);
+}
+
+.skill-card h4 {
+    font-family: "Space Grotesk";
+
+    font-size: 21px;
+
+    letter-spacing: -.6px;
+
+    margin-bottom: 7px;
+}
+
+.skill-card p {
+    color: var(--muted);
+
+    font-size: 12px;
+}
+
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+
+    gap: 6px;
+
+    margin-top: 16px;
+}
+
+.tags span {
+    padding: 6px 8px;
+
+    border-radius: 100px;
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    color: #505664;
+
+    background:
+        rgba(16,17,23,.045);
+}
+
+
+/* =========================================================
+   NETWORK VISUAL
+========================================================= */
+
+.network {
+    background: #101117;
+    color: white;
+
+    overflow: hidden;
+}
+
+.network .section-heading h2 {
+    color: white;
+}
+
+.network .eyebrow {
+    color: var(--pink);
+}
+
+.network .section-heading p {
+    color: rgba(255,255,255,.53);
+}
+
+.network-stage {
+    position: relative;
+
+    min-height: 570px;
+
+    border:
+        1px solid rgba(255,255,255,.08);
+
+    border-radius: var(--radius-xl);
+
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            circle at 50% 50%,
+            rgba(37,87,255,.12),
+            transparent 36%
+        ),
+        #13151d;
+}
+
+.network-grid {
+    position: absolute;
+    inset: 0;
+
+    background-image:
+        linear-gradient(
+            rgba(255,255,255,.04) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(255,255,255,.04) 1px,
+            transparent 1px
+        );
+
+    background-size: 55px 55px;
+}
+
+.network-svg {
+    position: absolute;
+
+    inset: 30px;
+
+    width: calc(100% - 60px);
+    height: calc(100% - 60px);
+}
+
+.node {
+    position: absolute;
+
+    width: 120px;
+
+    transform: translate(-50%,-50%);
+
+    padding: 17px;
+
+    border-radius: 18px;
+
+    text-align: center;
+
+    background:
+        rgba(255,255,255,.055);
+
+    border:
+        1px solid rgba(255,255,255,.13);
+
+    backdrop-filter: blur(15px);
+
+    box-shadow:
+        0 15px 45px rgba(0,0,0,.20);
+}
+
+.node::before {
+    content: "";
+
+    position: absolute;
+
+    inset: -7px;
+
+    border-radius: 24px;
+
+    border:
+        1px solid rgba(37,87,255,.12);
+
+    animation:
+        nodePulse 2.8s infinite;
+}
+
+@keyframes nodePulse {
+    50% {
+        transform: scale(1.05);
+        opacity: .25;
+    }
+}
+
+.node strong {
+    display: block;
+
+    font-family: "Space Grotesk";
+
+    font-size: 13px;
+}
+
+.node span {
+    display: block;
+
+    margin-top: 5px;
+
+    color: rgba(255,255,255,.45);
+
+    font-size: 9px;
+}
+
+.node.blue {
+    box-shadow:
+        0 0 40px rgba(37,87,255,.15);
+}
+
+.node.pink {
+    box-shadow:
+        0 0 40px rgba(255,62,165,.14);
+}
+
+.n1 {
+    top: 19%;
+    left: 14%;
+}
+
+.n2 {
+    top: 20%;
+    left: 50%;
+}
+
+.n3 {
+    top: 19%;
+    left: 86%;
+}
+
+.n4 {
+    top: 51%;
+    left: 29%;
+}
+
+.n5 {
+    top: 53%;
+    left: 70%;
+}
+
+.n6 {
+    top: 82%;
+    left: 50%;
+}
+
+.network-caption {
+    position: absolute;
+
+    left: 32px;
+    bottom: 26px;
+
+    font-size: 10px;
+
+    letter-spacing: 1.8px;
+
+    text-transform: uppercase;
+
+    color: rgba(255,255,255,.36);
+}
+
+
+/* =========================================================
+   PROJECTS
+========================================================= */
+
+.projects {
+    background: #f7f8fc;
+}
+
+.project-stack {
+    display: grid;
+    gap: 24px;
+}
+
+.project {
+    display: grid;
+
+    grid-template-columns: .95fr 1.05fr;
+
+    min-height: 520px;
+
+    overflow: hidden;
+
+    border-radius: var(--radius-xl);
+
+    background: white;
+
+    border: 1px solid rgba(255,255,255,.9);
+
+    box-shadow:
+        0 20px 70px rgba(26,39,92,.07);
+}
+
+.project-image {
+    min-height: 100%;
+
+    position: relative;
+
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            145deg,
+            #e9edff,
+            #fff0f8
+        );
+}
+
+.project-image::after {
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        radial-gradient(
+            circle at 30% 30%,
+            rgba(37,87,255,.20),
+            transparent 35%
+        );
+}
+
+.project-art {
+    position: absolute;
+
+    inset: 30px;
+
+    border-radius: 28px;
+
+    background:
+        #11131b;
+
+    overflow: hidden;
+
+    border:
+        1px solid rgba(255,255,255,.11);
+
+    box-shadow:
+        0 25px 60px rgba(18,22,50,.18);
+}
+
+.terminal-lines {
+    padding: 27px;
+
+    font-family: monospace;
+
+    font-size: 11px;
+
+    line-height: 2;
+
+    color: #b8bfd1;
+}
+
+.t-green {
+    color: #39d98a;
+}
+
+.t-blue {
+    color: #5b8cff;
+}
+
+.t-pink {
+    color: #ff69bd;
+}
+
+.project-info {
+    padding: 54px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+}
+
+.project-number {
+    font-size: 10px;
+
+    color: var(--blue);
+
+    text-transform: uppercase;
+
+    letter-spacing: 2px;
+
+    font-weight: 800;
+}
+
+.project-status {
+    display: inline-flex;
+
+    align-items: center;
+
+    width: max-content;
+
+    margin-top: 12px;
+
+    padding: 7px 10px;
+
+    border-radius: 100px;
+
+    font-size: 9px;
+
+    text-transform: uppercase;
+
+    letter-spacing: 1px;
+
+    font-weight: 800;
+
+    color: #168044;
+
+    background: rgba(39,199,111,.08);
+}
+
+.project-info h3 {
+    font-family: "Space Grotesk";
+
+    font-size: clamp(32px, 4vw, 58px);
+
+    line-height: .95;
+
+    letter-spacing: -2.6px;
+
+    margin: 19px 0;
+}
+
+.project-info p {
+    max-width: 550px;
+
+    color: var(--muted);
+
+    font-size: 14px;
+}
+
+.project-points {
+    margin-top: 20px;
+
+    display: grid;
+
+    gap: 8px;
+}
+
+.project-points div {
+    display: flex;
+
+    gap: 9px;
+
+    color: #505664;
+
+    font-size: 11px;
+}
+
+.project-points b {
+    color: var(--blue);
+}
+
+
+/* =========================================================
+   PROJECTS SMALL
+========================================================= */
+
+.small-projects {
+    margin-top: 24px;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap: 18px;
+}
+
+.small-project {
+    padding: 28px;
+
+    min-height: 270px;
+
+    border-radius: 24px;
+
+    border: 1px solid rgba(255,255,255,.9);
+
+    background:
+        rgba(255,255,255,.78);
+
+    box-shadow: var(--shadow-sm);
+
+    transition: .35s ease;
+}
+
+.small-project:hover {
+    transform: translateY(-7px);
+    box-shadow: var(--shadow);
+}
+
+.small-project .num {
+    color: var(--pink);
+
+    font-size: 10px;
+
+    letter-spacing: 2px;
+
+    font-weight: 800;
+}
+
+.small-project h4 {
+    font-family: "Space Grotesk";
+
+    font-size: 25px;
+
+    line-height: 1;
+
+    letter-spacing: -1px;
+
+    margin: 15px 0 12px;
+}
+
+.small-project p {
+    color: var(--muted);
+
+    font-size: 12px;
+}
+
+.small-project .tags {
+    margin-top: 20px;
+}
+
+
+/* =========================================================
+   JOURNEY
+========================================================= */
+
+.journey {
+    background:
+        linear-gradient(
+            180deg,
+            #edf2ff,
+            #f7f8fc
+        );
+}
+
+.timeline {
+    position: relative;
+
+    max-width: 920px;
+
+    margin: auto;
+}
+
+.timeline::before {
+    content: "";
+
+    position: absolute;
+
+    left: 19px;
+    top: 5px;
+    bottom: 5px;
+
+    width: 1px;
+
+    background:
+        linear-gradient(
+            to bottom,
+            var(--blue),
+            var(--pink)
+        );
+}
+
+.timeline-item {
+    position: relative;
+
+    padding-left: 65px;
+
+    margin-bottom: 45px;
+}
+
+.timeline-dot {
+    position: absolute;
+
+    left: 9px;
+    top: 2px;
+
+    width: 21px;
+    height: 21px;
+
+    border-radius: 50%;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--blue),
+            var(--pink)
+        );
+
+    box-shadow:
+        0 0 0 8px rgba(37,87,255,.06);
+}
+
+.timeline-label {
+    color: var(--blue);
+
+    font-size: 10px;
+
+    letter-spacing: 2px;
+
+    text-transform: uppercase;
+
+    font-weight: 800;
+}
+
+.timeline-item h3 {
+    font-family: "Space Grotesk";
+
+    margin-top: 7px;
+
+    font-size: 28px;
+
+    letter-spacing: -1px;
+}
+
+.timeline-item p {
+    color: var(--muted);
+
+    margin-top: 8px;
+
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   CERTIFICATION / RECRUITER
+========================================================= */
+
+.recruiter {
+    background: #fff;
+}
+
+.recruiter-grid {
+    display: grid;
+
+    grid-template-columns:
+        .8fr 1.2fr;
+
+    gap: 25px;
+}
+
+.cert-card {
+    padding: 42px;
+
+    border-radius: var(--radius-xl);
+
+    background:
+        linear-gradient(
+            145deg,
+            #151722,
+            #252844
+        );
+
+    color: white;
+
+    min-height: 390px;
+
+    position: relative;
+
+    overflow: hidden;
+}
+
+.cert-card::after {
+    content: "";
+
+    position: absolute;
+
+    width: 320px;
+    height: 320px;
+
+    border-radius: 50%;
+
+    right: -130px;
+    top: -100px;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255,62,165,.32),
+            transparent 70%
+        );
+}
+
+.cert-logo {
+    width: 58px;
+    height: 58px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 18px;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--blue),
+            var(--pink)
+        );
+
+    font-family: "Space Grotesk";
+
+    font-weight: 800;
+
+    position: relative;
+
+    z-index: 1;
+}
+
+.cert-card h3 {
+    font-family: "Space Grotesk";
+
+    font-size: 37px;
+
+    line-height: .96;
+
+    margin-top: 30px;
+
+    position: relative;
+
+    z-index: 1;
+}
+
+.cert-card p {
+    position: relative;
+
+    z-index: 1;
+
+    margin-top: 15px;
+
+    color: rgba(255,255,255,.55);
+
+    font-size: 13px;
+}
+
+.snapshot {
+    padding: 42px;
+
+    border-radius: var(--radius-xl);
+
+    border: 1px solid rgba(255,255,255,.92);
+
+    background:
+        rgba(255,255,255,.75);
+
+    box-shadow: var(--shadow-sm);
+}
+
+.snapshot h3 {
+    font-family: "Space Grotesk";
+
+    font-size: 34px;
+
+    letter-spacing: -1.4px;
+}
+
+.snapshot p {
+    margin-top: 10px;
+
+    color: var(--muted);
+
+    font-size: 13px;
+}
+
+.snapshot-grid {
+    margin-top: 28px;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 12px;
+}
+
+.snapshot-item {
+    padding: 17px;
+
+    border-radius: 15px;
+
+    background: rgba(16,17,23,.035);
+
+    border: 1px solid var(--line);
+}
+
+.snapshot-item span {
+    display: block;
+
+    color: var(--soft);
+
+    font-size: 9px;
+
+    letter-spacing: 1.4px;
+
+    text-transform: uppercase;
+
+    margin-bottom: 5px;
+}
+
+.snapshot-item strong {
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   CONTACT
+========================================================= */
+
+.contact {
+    background:
+        #101117;
+
+    color: white;
+
+    overflow: hidden;
+}
+
+.contact::before {
+    content: "";
+
+    position: absolute;
+
+    width: 520px;
+    height: 520px;
+
+    right: -190px;
+    bottom: -250px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255,62,165,.28),
+            transparent 70%
+        );
+}
+
+.contact-grid {
+    display: grid;
+
+    grid-template-columns:
+        1.1fr .9fr;
+
+    gap: 70px;
+
+    align-items: end;
+}
+
+.contact h2 {
+    font-family: "Space Grotesk";
+
+    font-size: clamp(56px, 8vw, 105px);
+
+    line-height: .83;
+
+    letter-spacing: -5px;
+
+    max-width: 900px;
+}
+
+.contact h2 .pink {
+    color: var(--pink);
+}
+
+.contact-description {
+    max-width: 600px;
+
+    margin-top: 25px;
+
+    color: rgba(255,255,255,.53);
+
+    font-size: 15px;
+}
+
+.contact-links {
+    display: grid;
+
+    gap: 10px;
+}
+
+.contact-link {
+    padding: 19px 21px;
+
+    border-radius: 17px;
+
+    border:
+        1px solid rgba(255,255,255,.10);
+
+    background:
+        rgba(255,255,255,.045);
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    transition: .3s ease;
+}
+
+.contact-link:hover {
+    transform: translateX(7px);
+
+    background:
+        rgba(255,255,255,.08);
+
+    border-color:
+        rgba(255,62,165,.35);
+}
+
+.contact-link small {
+    display: block;
+
+    color: rgba(255,255,255,.38);
+
+    text-transform: uppercase;
+
+    font-size: 8px;
+
+    letter-spacing: 1.5px;
+
+    margin-bottom: 4px;
+}
+
+.contact-link strong {
+    font-size: 12px;
+}
+
+.contact-arrow {
+    font-size: 20px;
+
+    color: var(--pink);
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+footer {
+    background: #101117;
+
+    color: rgba(255,255,255,.38);
+
+    border-top:
+        1px solid rgba(255,255,255,.07);
+
+    padding: 28px 0;
+}
+
+.footer-inner {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 20px;
+}
+
+.footer-inner p {
+    font-size: 11px;
+}
+
+.footer-name {
+    font-family: "Space Grotesk";
+
+    color: white;
+
+    font-size: 13px;
+
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   REVEAL
+========================================================= */
+
+.reveal {
+    opacity: 0;
+
+    transform:
+        translateY(45px);
+
+    transition:
+        opacity .9s cubic-bezier(.2,.7,.2,1),
+        transform .9s cubic-bezier(.2,.7,.2,1);
+}
+
+.reveal.visible {
+    opacity: 1;
+
+    transform:
+        translateY(0);
+}
+
+
+/* =========================================================
+   RESUME MODAL
+========================================================= */
+
+.modal {
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 5000;
+
+    background:
+        rgba(10,12,20,.65);
+
+    backdrop-filter: blur(14px);
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    padding: 25px;
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    transition: .3s;
+}
+
+.modal.open {
+    opacity: 1;
+
+    visibility: visible;
+}
+
+.modal-box {
+    width: min(100%, 1000px);
+
+    height: min(92vh, 900px);
+
+    background: white;
+
+    border-radius: 25px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 40px 120px rgba(0,0,0,.35);
+
+    position: relative;
+
+    transform:
+        scale(.96);
+
+    transition: .3s;
+}
+
+.modal.open .modal-box {
+    transform:
+        scale(1);
+}
+
+.modal-header {
+    height: 58px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 0 18px;
+
+    border-bottom:
+        1px solid var(--line);
+}
+
+.modal-header strong {
+    font-family: "Space Grotesk";
+
+    font-size: 14px;
+}
+
+.modal-close {
+    width: 35px;
+    height: 35px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 50%;
+
+    background: #f0f1f6;
+}
+
+.resume-frame {
+    width: 100%;
+    height: calc(100% - 58px);
+
+    border: 0;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 1050px) {
+
+    .hero-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .hero-visual {
+        min-height: 650px;
+        max-width: 650px;
+        width: 100%;
+        margin: auto;
+    }
+
+    .profile-photo {
+        right: 50%;
+        transform:
+            translateX(50%)
+            rotate(2deg);
+    }
+
+    .card-location {
+        left: 10px;
+    }
+
+    .card-terminal {
+        right: 10px;
+    }
+
+    .skill-layout,
+    .recruiter-grid,
+    .contact-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .skill-intro {
+        position: relative;
+        top: 0;
+        min-height: 400px;
+    }
+}
+
+
+@media (max-width: 800px) {
+
+    .container {
+        width: min(calc(100% - 30px), var(--max));
+    }
+
+    section {
+        padding: 90px 0;
+    }
+
+    .menu {
+        position: fixed;
+
+        top: 84px;
+        left: 15px;
+        right: 15px;
+
+        background:
+            rgba(255,255,255,.94);
+
+        backdrop-filter: blur(22px);
+
+        border:
+            1px solid rgba(255,255,255,.9);
+
+        border-radius: 25px;
+
+        padding: 22px;
+
+        flex-direction: column;
+
+        align-items: stretch;
+
+        gap: 17px;
+
+        box-shadow:
+            0 30px 80px rgba(20,30,80,.15);
+
+        transform:
+            translateY(-20px);
+
+        opacity: 0;
+        visibility: hidden;
+
+        transition: .3s;
+    }
+
+    .menu.open {
+        transform:
+            translateY(0);
+
+        opacity: 1;
+
+        visibility: visible;
+    }
+
+    .menu a {
+        padding: 9px 4px;
+    }
+
+    .resume-nav {
+        text-align: center;
+    }
+
+    .mobile-btn {
+        display: grid;
+        place-items: center;
+    }
+
+    .hero {
+        padding-top: 140px;
+    }
+
+    .hero-title {
+        font-size: clamp(57px, 15vw, 100px);
+        letter-spacing: -4px;
+    }
+
+    .hero-visual {
+        min-height: 550px;
+    }
+
+    .profile-photo {
+        width: 76%;
+        max-width: 390px;
+    }
+
+    .card-location {
+        bottom: 30px;
+    }
+
+    .card-terminal {
+        bottom: -5px;
+    }
+
+    .section-heading {
+        grid-template-columns: 1fr;
+    }
+
+    .about-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .skill-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .project {
+        grid-template-columns: 1fr;
+    }
+
+    .project-image {
+        min-height: 330px;
+    }
+
+    .small-projects {
+        grid-template-columns: 1fr;
+    }
+
+    .network-stage {
+        min-height: 510px;
+    }
+
+    .network-svg {
+        inset: 10px;
+        width: calc(100% - 20px);
+        height: calc(100% - 20px);
+    }
+
+    .node {
+        width: 90px;
+        padding: 12px;
+    }
+
+    .node strong {
+        font-size: 10px;
+    }
+
+    .node span {
+        font-size: 7px;
+    }
+
+    .contact h2 {
+        letter-spacing: -3px;
+    }
+
+    .footer-inner {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+    }
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     LOADER
+========================================================= -->
+
+<div class="loader" id="loader">
+
+    <div class="loader-inner">
+
+        <div class="loader-top">
+
+            <div class="loader-name">
+                SOU<em>R</em>ABH / DEVOPS
+            </div>
+
+            <div class="loader-percent" id="loaderPercent">
+                0%
+            </div>
+
+        </div>
+
+        <div class="loader-line">
+
+            <div
+                class="loader-progress"
+                id="loaderProgress">
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     CUSTOM CURSOR
+========================================================= -->
+
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+
+<!-- =========================================================
+     NAV
+========================================================= -->
+
+<div class="nav-wrap">
+
+    <nav class="nav" id="navbar">
+
+        <a href="#home" class="brand">
+
+            <span class="brand-mark">
+                SL
+            </span>
+
+            <span class="brand-text">
+                Sourabh Lagali
+            </span>
+
+        </a>
+
+
+        <div class="menu" id="menu">
+
+            <a href="#about">
+                ABOUT
+            </a>
+
+            <a href="#stack">
+                STACK
+            </a>
+
+            <a href="#projects">
+                PROJECTS
+            </a>
+
+            <a href="#journey">
+                JOURNEY
+            </a>
+
+            <a href="#contact">
+                CONTACT
+            </a>
+
+            <a
+                href="assets/Sourabh-Lagali-Resume.pdf"
+                download
+                class="resume-nav"
+            >
+                RESUME ↓
+            </a>
+
+        </div>
+
+
+        <button
+            class="mobile-btn"
+            id="mobileBtn"
+            aria-label="Open navigation"
+        >
+            ☰
+        </button>
+
+    </nav>
+
+</div>
+
+
+<!-- =========================================================
+     HERO
+========================================================= -->
+
+<main>
+
+<section class="hero" id="home">
+
+    <div class="hero-grid-lines"></div>
+
+    <div class="hero-orb"></div>
+    <div class="hero-orb two"></div>
+
+
+    <div class="container">
+
+        <div class="hero-grid">
+
+
+            <!-- HERO COPY -->
+
+            <div class="reveal">
+
+                <div class="hero-kicker">
+
+                    <span class="live-dot"></span>
+
+                    BANGALORE · INDIA · OPEN TO OPPORTUNITIES
+
+                </div>
+
+
+                <h1 class="hero-title">
+
+                    <span class="line">
+                        DEVOPS
+                    </span>
+
+                    <span class="line blue">
+                        &
+                    </span>
+
+                    <span class="line pink">
+                        CLOUD
+                    </span>
+
+                    <span class="line">
+                        ENGINEER
+                    </span>
+
+                </h1>
+
+
+                <p class="hero-subtitle">
+
+                    I build, automate and operate
+                    cloud infrastructure with a focus on
+                    Linux, AWS, containers, CI/CD and
+                    infrastructure automation.
+
+                </p>
+
+
+                <div class="hero-actions">
+
+                    <a
+                        href="#projects"
+                        class="button button-primary magnetic"
+                    >
+                        Explore Projects →
+                    </a>
+
+                    <button
+                        class="button button-light magnetic"
+                        id="openResume"
+                    >
+                        View Resume
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- HERO VISUAL -->
+
+            <div class="hero-visual reveal">
+
+                <div class="profile-photo">
+
+                    <img
+                        src="assets/profile.jpg"
+                        alt="Sourabh Lagali — DevOps & Cloud Engineer"
+                    >
+
+                    <div class="photo-label">
+                        SOURABH LAGALI · DEVOPS
+                    </div>
+
+                </div>
+
+
+                <div class="glass-card card-location">
+
+                    <div class="mini-label">
+                        BASED IN
+                    </div>
+
+                    <strong>
+                        Bangalore, India
+                    </strong>
+
+                </div>
+
+
+                <div class="glass-card card-terminal">
+
+                    <div>
+                        <span class="code-green">
+                            sourabh@devops
+                        </span>:~$
+                    </div>
+
+                    <div>
+                        <span class="code-blue">
+                            aws
+                        </span>
+                        <span class="code-pink">
+                            --cloud
+                        </span>
+                        engineer
+                    </div>
+
+                    <br>
+
+                    <div>
+                        status:
+                        <span class="code-green">
+                            building
+                        </span>
+                    </div>
+
+                    <div>
+                        linux:
+                        <span class="code-green">
+                            ready
+                        </span>
+                    </div>
+
+                    <div>
+                        containers:
+                        <span class="code-green">
+                            ready
+                        </span>
+                    </div>
+
+                    <div>
+                        ci_cd:
+                        <span class="code-green">
+                            active
+                        </span>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     MARQUEE
+========================================================= -->
+
+<section class="marquee-section">
+
+    <div class="marquee">
+
+        <span>
+            LINUX
+            <i></i>
+            AWS
+            <i></i>
+            DOCKER
+            <i></i>
+            KUBERNETES
+            <i></i>
+            TERRAFORM
+        </span>
+
+        <span>
+            LINUX
+            <i></i>
+            AWS
+            <i></i>
+            DOCKER
+            <i></i>
+            KUBERNETES
+            <i></i>
+            TERRAFORM
+        </span>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     ABOUT
+========================================================= -->
+
+<section
+    class="about"
+    id="about"
+>
+
+    <div class="container">
+
+
+        <div class="section-heading reveal">
+
+            <div>
+
+                <div class="eyebrow">
+                    01 / ABOUT
+                </div>
+
+            </div>
+
+            <div>
+
+                <h2>
+                    FROM CODE
+                    TO CLOUD.
+                </h2>
+
+                <p>
+                    Computer Science Engineering graduate
+                    focused on DevOps and Cloud Engineering,
+                    with hands-on Linux automation and
+                    infrastructure work.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="about-layout">
+
+
+            <div class="about-card reveal">
+
+                <h3>
+                    Infrastructure
+                    should work
+                    without drama.
+                </h3>
+
+                <p>
+                    My focus is understanding the systems
+                    underneath applications — Linux,
+                    networking, cloud infrastructure,
+                    containers, automation and deployment.
+                </p>
+
+                <p>
+                    I learn by building practical systems
+                    instead of treating DevOps tools as
+                    isolated technologies.
+                </p>
+
+            </div>
+
+
+            <div class="about-card reveal">
+
+                <div class="eyebrow">
+                    PROFILE
+                </div>
+
+                <div class="about-data">
+
+                    <div class="data-item">
+
+                        <span>
+                            Name
+                        </span>
+
+                        <strong>
+                            Sourabh Lagali
+                        </strong>
+
+                    </div>
+
+                    <div class="data-item">
+
+                        <span>
+                            Role
+                        </span>
+
+                        <strong>
+                            DevOps & Cloud Engineer
+                        </strong>
+
+                    </div>
+
+                    <div class="data-item">
+
+                        <span>
+                            Education
+                        </span>
+
+                        <strong>
+                            Computer Science Engineering
+                        </strong>
+
+                    </div>
+
+                    <div class="data-item">
+
+                        <span>
+                            Graduation
+                        </span>
+
+                        <strong>
+                            2024
+                        </strong>
+
+                    </div>
+
+                    <div class="data-item">
+
+                        <span>
+                            College
+                        </span>
+
+                        <strong>
+                            Basaveshwara Engineering College
+                        </strong>
+
+                    </div>
+
+                    <div class="data-item">
+
+                        <span>
+                            Experience
+                        </span>
+
+                        <strong>
+                            Fresher
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     STACK
+========================================================= -->
+
+<section
+    class="skills"
+    id="stack"
+>
+
+    <div class="container">
+
+
+        <div class="section-heading reveal">
+
+            <div>
+
+                <div class="eyebrow">
+                    02 / TECHNICAL STACK
+                </div>
+
+            </div>
+
+            <div>
+
+                <h2>
+                    TOOLS
+                    THAT MOVE
+                    SYSTEMS.
+                </h2>
+
+                <p>
+                    Core technologies across cloud,
+                    operating systems, automation,
+                    containers, CI/CD and observability.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="skill-layout">
+
+
+            <div class="skill-intro reveal">
+
+                <h3>
+                    BUILD.<br>
+                    AUTOMATE.<br>
+                    DEPLOY.
+                </h3>
+
+                <p>
+                    My DevOps learning path is centered
+                    around practical infrastructure,
+                    repeatable deployments and operational
+                    problem solving.
+                </p>
+
+                <div class="skill-number">
+                    LINUX → CLOUD → DEVOPS
+                </div>
+
+            </div>
+
+
+            <div class="skill-grid">
+
+
+                <div class="skill-card reveal">
+
+                    <div class="skill-top">
+
+                        <div class="skill-icon">
+                            AWS
+                        </div>
+
+                        <div class="skill-index">
+                            01
+                        </div>
+
+                    </div>
+
+                    <h4>
+                        Cloud
+                    </h4>
+
+                    <p>
+                        Core AWS infrastructure and
+                        deployment concepts.
+                    </p>
+
+                    <div class="tags">
+                        <span>EC2</span>
+                        <span>S3</span>
+                        <span>IAM</span>
+                        <span>VPC</span>
+                        <span>RDS</span>
+                        <span>CloudWatch</span>
+                        <span>Load Balancer</span>
+                    </div>
+
+                </div>
+
+
+                <div class="skill-card reveal">
+
+                    <div class="skill-top">
+
+                        <div class="skill-icon">
+                            $_
+                        </div>
+
+                        <div class="skill-index">
+                            02
+                        </div>
+
+                    </div>
+
+                    <h4>
+                        Linux & Bash
+                    </h4>
+
+                    <p>
+                        Server administration and shell
+                        automation.
+                    </p>
+
+                    <div class="tags">
+                        <span>Ubuntu</span>
+                        <span>Bash</span>
+                        <span>SSH</span>
+                        <span>Processes</span>
+                        <span>systemd</span>
+                        <span>Cron</span>
+                        <span>Logs</span>
+                    </div>
+
+                </div>
+
+
+                <div class="skill-card reveal">
+
+                    <div class="skill-top">
+
+                        <div class="skill-icon">
+                            ⎈
+                        </div>
+
+                        <div class="skill-index">
+                            03
+                        </div>
+
+                    </div>
+
+                    <h4>
+                        Containers
+                    </h4>
+
+                    <p>
+                        Reproducible application environments
+                        and orchestration concepts.
+                    </p>
+
+                    <div class="tags">
+                        <span>Docker</span>
+                        <span>Kubernetes</span>
+                        <span>Pods</span>
+                        <span>Services</span>
+                        <span>YAML</span>
+                    </div>
+
+                </div>
+
+
+                <div class="skill-card reveal">
+
+                    <div class="skill-top">
+
+                        <div class="skill-icon">
+                            IaC
+                        </div>
+
+                        <div class="skill-index">
+                            04
+                        </div>
+
+                    </div>
+
+                    <h4>
+                        Terraform
+                    </h4>
+
+                    <p>
+                        Declarative infrastructure provisioning
+                        and repeatable cloud environments.
+                    </p>
+
+                    <div class="tags">
+                        <span>Resources</span>
+                        <span>Providers</span>
+                        <span>Variables</span>
+                        <span>Outputs</span>
+                        <span>State</span>
+                    </div>
+
+                </div>
+
+
+                <div class="skill-card reveal">
+
+                    <div class="skill-top">
+
+                        <div class="skill-icon">
+                            CI
+                        </div>
+
+                        <div class="skill-index">
+                            05
+                        </div>
+
+                    </div>
+
+                    <h4>
+                        CI / CD
+                    </h4>
+
+                    <p>
+                        Automated build, validation and
+                        deployment workflows.
+                    </p>
+
+                    <div class="tags">
+                        <span>Git</span>
+                        <span>GitHub</span>
+                        <span>GitHub Actions</span>
+                        <span>Jenkins</span>
+                    </div>
+
+                </div>
+
+
+                <div class="skill-card reveal">
+
+                    <div class="skill-top">
+
+                        <div class="skill-icon">
+                            NET
+                        </div>
+
+                        <div class="skill-index">
+                            06
+                        </div>
+
+                    </div>
+
+                    <h4>
+                        Networking
+                    </h4>
+
+                    <p>
+                        Networking fundamentals needed
+                        for infrastructure troubleshooting.
+                    </p>
+
+                    <div class="tags">
+                        <span>TCP/IP</span>
+                        <span>DNS</span>
+                        <span>HTTP/HTTPS</span>
+                        <span>IPv4</span>
+                        <span>Subnetting</span>
+                        <span>Ports</span>
+                        <span>Routing</span>
+                        <span>Firewalls</span>
+                    </div>
+
+                </div>
+
+
+                <div class="skill-card reveal">
+
+                    <div class="skill-top">
+
+                        <div class="skill-icon">
+                            MON
+                        </div>
+
+                        <div class="skill-index">
+                            07
+                        </div>
+
+                    </div>
+
+                    <h4>
+                        Monitoring
+                    </h4>
+
+                    <p>
+                        Application and infrastructure
+                        visibility.
+                    </p>
+
+                    <div class="tags">
+                        <span>CloudWatch</span>
+                        <span>Prometheus</span>
+                        <span>Grafana</span>
+                        <span>Logs</span>
+                        <span>Metrics</span>
+                    </div>
+
+                </div>
+
+
+                <div class="skill-card reveal">
+
+                    <div class="skill-top">
+
+                        <div class="skill-icon">
+                            PY
+                        </div>
+
+                        <div class="skill-index">
+                            08
+                        </div>
+
+                    </div>
+
+                    <h4>
+                        Scripting
+                    </h4>
+
+                    <p>
+                        Automation and operational scripting.
+                    </p>
+
+                    <div class="tags">
+                        <span>Bash</span>
+                        <span>Python</span>
+                        <span>Shell</span>
+                        <span>Automation</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     NETWORK
+========================================================= -->
+
+<section class="network">
+
+    <div class="container">
+
+
+        <div class="section-heading reveal">
+
+            <div>
+
+                <div class="eyebrow">
+                    03 / INFRASTRUCTURE
+                </div>
+
+            </div>
+
+            <div>
+
+                <h2>
+                    SYSTEMS
+                    CONNECTED.
+                </h2>
+
+                <p>
+                    A simplified view of how application,
+                    network, cloud and monitoring layers
+                    connect in a DevOps workflow.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="network-stage reveal">
+
+            <div class="network-grid"></div>
+
+
+            <svg
+                class="network-svg"
+                viewBox="0 0 1000 500"
+                preserveAspectRatio="none"
+            >
+
+                <defs>
+
+                    <linearGradient
+                        id="lineGradient"
+                        x1="0"
+                        y1="0"
+                        x2="1"
+                        y2="0"
+                    >
+
+                        <stop
+                            offset="0"
+                            stop-color="#2557ff"
+                        />
+
+                        <stop
+                            offset="1"
+                            stop-color="#ff3ea5"
+                        />
+
+                    </linearGradient>
+
+                </defs>
+
+
+                <g
+                    fill="none"
+                    stroke="url(#lineGradient)"
+                    stroke-width="2"
+                    stroke-dasharray="7 10"
+                    opacity=".75"
+                >
+
+                    <path
+                        d="M140 95 L500 100"
+                    />
+
+                    <path
+                        d="M500 100 L860 95"
+                    />
+
+                    <path
+                        d="M140 95 L300 260"
+                    />
+
+                    <path
+                        d="M500 100 L700 260"
+                    />
+
+                    <path
+                        d="M300 260 L700 260"
+                    />
+
+                    <path
+                        d="M300 260 L500 410"
+                    />
+
+                    <path
+                        d="M700 260 L500 410"
+                    />
+
+                </g>
+
+
+                <g
+                    fill="#fff"
+                    opacity=".95"
+                >
+
+                    <circle
+                        cx="140"
+                        cy="95"
+                        r="6"
+                    />
+
+                    <circle
+                        cx="500"
+                        cy="100"
+                        r="6"
+                    />
+
+                    <circle
+                        cx="860"
+                        cy="95"
+                        r="6"
+                    />
+
+                    <circle
+                        cx="300"
+                        cy="260"
+                        r="6"
+                    />
+
+                    <circle
+                        cx="700"
+                        cy="260"
+                        r="6"
+                    />
+
+                    <circle
+                        cx="500"
+                        cy="410"
+                        r="6"
+                    />
+
+                </g>
+
+            </svg>
+
+
+            <div class="node blue n1">
+
+                <strong>
+                    INTERNET
+                </strong>
+
+                <span>
+                    TRAFFIC
+                </span>
+
+            </div>
+
+
+            <div class="node blue n2">
+
+                <strong>
+                    AWS
+                </strong>
+
+                <span>
+                    CLOUD
+                </span>
+
+            </div>
+
+
+            <div class="node pink n3">
+
+                <strong>
+                    MONITOR
+                </strong>
+
+                <span>
+                    OBSERVABILITY
+                </span>
+
+            </div>
+
+
+            <div class="node blue n4">
+
+                <strong>
+                    VPC
+                </strong>
+
+                <span>
+                    NETWORK
+                </span>
+
+            </div>
+
+
+            <div class="node pink n5">
+
+                <strong>
+                    APP
+                </strong>
+
+                <span>
+                    CONTAINER
+                </span>
+
+            </div>
+
+
+            <div class="node blue n6">
+
+                <strong>
+                    DATA
+                </strong>
+
+                <span>
+                    STORAGE
+                </span>
+
+            </div>
+
+
+            <div class="network-caption">
+
+                DEVOPS / CLOUD / NETWORK / OBSERVABILITY
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     PROJECTS
+========================================================= -->
+
+<section
+    class="projects"
+    id="projects"
+>
+
+    <div class="container">
+
+
+        <div class="section-heading reveal">
+
+            <div>
+
+                <div class="eyebrow">
+                    04 / PROJECTS
+                </div>
+
+            </div>
+
+            <div>
+
+                <h2>
+                    BUILDING
+                    IN PUBLIC.
+                </h2>
+
+                <p>
+                    Practical infrastructure projects that
+                    demonstrate how I apply DevOps concepts.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="project-stack">
+
+
+            <!-- COMPLETED PROJECT -->
+
+            <article class="project reveal">
+
+                <div class="project-image">
+
+                    <div class="project-art">
+
+                        <div class="terminal-lines">
+
+                            <div>
+                                <span class="t-green">
+                                    sourabh@linux
+                                </span>:~$
+                                ./sysauto
+                            </div>
+
+                            <div>
+                                [<span class="t-blue">INFO</span>]
+                                system monitor started
+                            </div>
+
+                            <div>
+                                [<span class="t-blue">INFO</span>]
+                                disk check complete
+                            </div>
+
+                            <div>
+                                [<span class="t-blue">INFO</span>]
+                                memory check complete
+                            </div>
+
+                            <div>
+                                [<span class="t-blue">INFO</span>]
+                                process scan complete
+                            </div>
+
+                            <div>
+                                [<span class="t-blue">INFO</span>]
+                                service check complete
+                            </div>
+
+                            <div>
+                                [<span class="t-pink">BACKUP</span>]
+                                backup completed
+                            </div>
+
+                            <div>
+                                [<span class="t-green">SUCCESS</span>]
+                                automation finished
+                            </div>
+
+                            <div>
+                                _
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="project-info">
+
+                    <div class="project-number">
+                        PROJECT 01
+                    </div>
+
+                    <div class="project-status">
+                        Completed
+                    </div>
+
+                    <h3>
+                        Smart Linux
+                        System
+                        Automation Toolkit
+                    </h3>
+
+                    <p>
+                        A command-line Linux automation toolkit
+                        for system monitoring, log analysis,
+                        file organization and automated backups.
+                    </p>
+
+                    <div class="project-points">
+
+                        <div>
+                            <b>+</b>
+                            Disk, memory, CPU and process monitoring
+                        </div>
+
+                        <div>
+                            <b>+</b>
+                            Bash automation and cron scheduling
+                        </div>
+
+                        <div>
+                            <b>+</b>
+                            Logging and error handling
+                        </div>
+
+                        <div>
+                            <b>+</b>
+                            Linux permissions, SSH and utilities
+                        </div>
+
+                    </div>
+
+                    <div class="tags">
+
+                        <span>Linux</span>
+                        <span>Bash</span>
+                        <span>Cron</span>
+                        <span>Automation</span>
+                        <span>System Admin</span>
+
+                    </div>
+
+                </div>
+
+            </article>
+
+
+            <!-- OTHER BUILDS -->
+
+            <div class="small-projects">
+
+
+                <article class="small-project reveal">
+
+                    <div class="num">
+                        BUILD 02
+                    </div>
+
+                    <h4>
+                        AWS Web
+                        Application
+                        Deployment
+                    </h4>
+
+                    <p>
+                        AWS deployment build covering EC2,
+                        VPC, S3, RDS, Nginx and Linux-based
+                        server configuration.
+                    </p>
+
+                    <div class="tags">
+                        <span>AWS</span>
+                        <span>EC2</span>
+                        <span>VPC</span>
+                        <span>S3</span>
+                        <span>RDS</span>
+                    </div>
+
+                </article>
+
+
+                <article class="small-project reveal">
+
+                    <div class="num">
+                        BUILD 03
+                    </div>
+
+                    <h4>
+                        Dockerized
+                        Application
+                        + CI/CD
+                    </h4>
+
+                    <p>
+                        Containerized application workflow using
+                        Docker and GitHub Actions for automated
+                        build and deployment.
+                    </p>
+
+                    <div class="tags">
+                        <span>Docker</span>
+                        <span>GitHub Actions</span>
+                        <span>AWS</span>
+                        <span>Git</span>
+                    </div>
+
+                </article>
+
+
+                <article class="small-project reveal">
+
+                    <div class="num">
+                        BUILD 04
+                    </div>
+
+                    <h4>
+                        Infrastructure
+                        as Code
+                        with Terraform
+                    </h4>
+
+                    <p>
+                        Repeatable AWS provisioning using
+                        Terraform resources, providers,
+                        variables, outputs and state.
+                    </p>
+
+                    <div class="tags">
+                        <span>Terraform</span>
+                        <span>AWS</span>
+                        <span>VPC</span>
+                        <span>EC2</span>
+                    </div>
+
+                </article>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     PHOTO SECTION
+========================================================= -->
+
+<section>
+
+    <div class="container">
+
+
+        <div class="section-heading reveal">
+
+            <div>
+
+                <div class="eyebrow">
+                    05 / PROFILE
+                </div>
+
+            </div>
+
+            <div>
+
+                <h2>
+                    THE PERSON
+                    BEHIND THE
+                    SYSTEMS.
+                </h2>
+
+                <p>
+                    Professional imagery integrated into the
+                    portfolio rather than treated as a separate
+                    photo gallery.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div
+            class="photo-grid"
+            style="
+                display:grid;
+                grid-template-columns:
+                    1.15fr .425fr .425fr;
+                gap:14px;
+            "
+        >
+
+            <div
+                class="reveal"
+                style="
+                    min-height:580px;
+                    border-radius:34px;
+                    overflow:hidden;
+                    background:#e9edff;
+                    border:1px solid rgba(255,255,255,.9);
+                    box-shadow:0 20px 70px rgba(26,39,92,.08);
+                "
+            >
+
+                <img
+                    src="assets/profile.jpg"
+                    alt="Sourabh Lagali profile"
+                    style="
+                        width:100%;
+                        height:100%;
+                        object-fit:cover;
+                    "
+                >
+
+            </div>
+
+
+            <!-- Generated photo 1 -->
+            <div
+                class="reveal"
+                style="
+                    min-height:580px;
+                    border-radius:34px;
+                    overflow:hidden;
+                    border:1px solid rgba(255,255,255,.9);
+                    box-shadow:0 20px 70px rgba(26,39,92,.08);
+                    background:
+                        linear-gradient(
+                            #dce5ff,
+                            #fff
+                        );
+                "
+            >
+
+                <div
+                    style="
+                        width:300%;
+                        height:100%;
+                        background-image:url('assets/devops-scenes.png');
+                        background-size:300% 100%;
+                        background-position:left center;
+                    "
+                ></div>
+
+            </div>
+
+
+            <!-- Generated photo 2 -->
+            <div
+                class="reveal"
+                style="
+                    min-height:580px;
+                    border-radius:34px;
+                    overflow:hidden;
+                    border:1px solid rgba(255,255,255,.9);
+                    box-shadow:0 20px 70px rgba(26,39,92,.08);
+                    background:
+                        linear-gradient(
+                            #fff0f8,
+                            #fff
+                        );
+                "
+            >
+
+                <div
+                    style="
+                        width:300%;
+                        height:100%;
+                        background-image:url('assets/devops-scenes.png');
+                        background-size:300% 100%;
+                        background-position:right center;
+                    "
+                ></div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     JOURNEY
+========================================================= -->
+
+<section
+    class="journey"
+    id="journey"
+>
+
+    <div class="container">
+
+
+        <div class="section-heading reveal">
+
+            <div>
+
+                <div class="eyebrow">
+                    06 / JOURNEY
+                </div>
+
+            </div>
+
+            <div>
+
+                <h2>
+                    LEARNING.
+                    BUILDING.
+                    DEPLOYING.
+                </h2>
+
+                <p>
+                    The transition from Computer Science
+                    Engineering graduate toward DevOps and
+                    Cloud Engineering.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="timeline">
+
+
+            <div class="timeline-item reveal">
+
+                <div class="timeline-dot"></div>
+
+                <div class="timeline-label">
+                    2024
+                </div>
+
+                <h3>
+                    Computer Science Engineering Graduate
+                </h3>
+
+                <p>
+                    Completed undergraduate studies in
+                    Computer Science Engineering at
+                    Basaveshwara Engineering College, Bagalkot.
+                </p>
+
+            </div>
+
+
+            <div class="timeline-item reveal">
+
+                <div class="timeline-dot"></div>
+
+                <div class="timeline-label">
+                    DEVOPS FOCUS
+                </div>
+
+                <h3>
+                    Linux → AWS → DevOps
+                </h3>
+
+                <p>
+                    Developed practical skills across Linux,
+                    networking, Git, AWS, Bash, Docker,
+                    Kubernetes, Terraform and CI/CD.
+                </p>
+
+            </div>
+
+
+            <div class="timeline-item reveal">
+
+                <div class="timeline-dot"></div>
+
+                <div class="timeline-label">
+                    CURRENT DIRECTION
+                </div>
+
+                <h3>
+                    DevOps & Cloud Engineering
+                </h3>
+
+                <p>
+                    Building infrastructure-focused projects
+                    and preparing for entry-level DevOps and
+                    Cloud Engineering opportunities.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     CERTIFICATION + RECRUITER SNAPSHOT
+========================================================= -->
+
+<section
+    class="recruiter"
+>
+
+    <div class="container">
+
+
+        <div class="section-heading reveal">
+
+            <div>
+
+                <div class="eyebrow">
+                    07 / CREDENTIALS
+                </div>
+
+            </div>
+
+            <div>
+
+                <h2>
+                    RECRUITER
+                    SNAPSHOT.
+                </h2>
+
+                <p>
+                    Everything a recruiter needs before
+                    opening the resume or GitHub profile.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="recruiter-grid">
+
+
+            <div class="cert-card reveal">
+
+                <div class="cert-logo">
+                    KL
+                </div>
+
+                <h3>
+                    DevOps
+                    Certification
+                </h3>
+
+                <p>
+                    KodeKloud · Coursera
+                </p>
+
+            </div>
+
+
+            <div class="snapshot reveal">
+
+                <h3>
+                    Quick profile.
+                </h3>
+
+                <p>
+                    A focused entry-level candidate profile
+                    for DevOps and Cloud Engineering roles.
+                </p>
+
+
+                <div class="snapshot-grid">
+
+                    <div class="snapshot-item">
+
+                        <span>
+                            Target Role
+                        </span>
+
+                        <strong>
+                            DevOps & Cloud Engineer
+                        </strong>
+
+                    </div>
+
+
+                    <div class="snapshot-item">
+
+                        <span>
+                            Experience
+                        </span>
+
+                        <strong>
+                            Fresher
+                        </strong>
+
+                    </div>
+
+
+                    <div class="snapshot-item">
+
+                        <span>
+                            Primary Cloud
+                        </span>
+
+                        <strong>
+                            AWS
+                        </strong>
+
+                    </div>
+
+
+                    <div class="snapshot-item">
+
+                        <span>
+                            OS
+                        </span>
+
+                        <strong>
+                            Linux
+                        </strong>
+
+                    </div>
+
+
+                    <div class="snapshot-item">
+
+                        <span>
+                            Automation
+                        </span>
+
+                        <strong>
+                            Bash / Python
+                        </strong>
+
+                    </div>
+
+
+                    <div class="snapshot-item">
+
+                        <span>
+                            IaC
+                        </span>
+
+                        <strong>
+                            Terraform
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="hero-actions">
+
+                    <button
+                        class="button button-primary"
+                        id="openResume2"
+                    >
+                        Open Resume →
+                    </button>
+
+                    <a
+                        href="https://www.linkedin.com/in/sourabh-lagali"
+                        target="_blank"
+                        rel="noopener"
+                        class="button button-light"
+                    >
+                        LinkedIn
+                    </a>
+
+                    <a
+                        href="https://github.com/sourabhlagali"
+                        target="_blank"
+                        rel="noopener"
+                        class="button button-light"
+                    >
+                        GitHub
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     CONTACT
+========================================================= -->
+
+<section
+    class="contact"
+    id="contact"
+>
+
+    <div class="container">
+
+
+        <div class="contact-grid">
+
+
+            <div class="reveal">
+
+                <div class="eyebrow">
+                    08 / CONTACT
+                </div>
+
+                <h2>
+                    BUILD
+                    <span class="pink">
+                        TOGETHER.
+                    </span>
+                </h2>
+
+                <p class="contact-description">
+                    Open to entry-level DevOps and Cloud
+                    Engineering opportunities and professional
+                    networking.
+                </p>
+
+            </div>
+
+
+            <div class="contact-links reveal">
+
+
+                <a
+                    href="mailto:souron33@gmail.com"
+                    class="contact-link magnetic"
+                >
+
+                    <div>
+
+                        <small>
+                            EMAIL
+                        </small>
+
+                        <strong>
+                            souron33@gmail.com
+                        </strong>
+
+                    </div>
+
+                    <div class="contact-arrow">
+                        ↗
+                    </div>
+
+                </a>
+
+
+                <a
+                    href="https://www.linkedin.com/in/sourabh-lagali"
+                    target="_blank"
+                    rel="noopener"
+                    class="contact-link magnetic"
+                >
+
+                    <div>
+
+                        <small>
+                            LINKEDIN
+                        </small>
+
+                        <strong>
+                            linkedin.com/in/sourabh-lagali
+                        </strong>
+
+                    </div>
+
+                    <div class="contact-arrow">
+                        ↗
+                    </div>
+
+                </a>
+
+
+                <a
+                    href="https://github.com/sourabhlagali"
+                    target="_blank"
+                    rel="noopener"
+                    class="contact-link magnetic"
+                >
+
+                    <div>
+
+                        <small>
+                            GITHUB
+                        </small>
+
+                        <strong>
+                            github.com/sourabhlagali
+                        </strong>
+
+                    </div>
+
+                    <div class="contact-arrow">
+                        ↗
+                    </div>
+
+                </a>
+
+
+                <button
+                    class="contact-link magnetic"
+                    id="openResume3"
+                    style="
+                        color:white;
+                        text-align:left;
+                    "
+                >
+
+                    <div>
+
+                        <small>
+                            RESUME
+                        </small>
+
+                        <strong>
+                            View / Download Resume
+                        </strong>
+
+                    </div>
+
+                    <div class="contact-arrow">
+                        ↓
+                    </div>
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+</main>
+
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+<footer>
+
+    <div class="container">
+
+        <div class="footer-inner">
+
+            <p>
+                ©
+                <span id="year"></span>
+                Sourabh Lagali
+            </p>
+
+            <div class="footer-name">
+                DEVOPS & CLOUD ENGINEER
+            </div>
+
+        </div>
+
+    </div>
+
+</footer>
+
+
+<!-- =========================================================
+     RESUME MODAL
+========================================================= -->
+
+<div
+    class="modal"
+    id="resumeModal"
+>
+
+    <div class="modal-box">
+
+        <div class="modal-header">
+
+            <strong>
+                SOURABH LAGALI — RESUME
+            </strong>
+
+            <button
+                class="modal-close"
+                id="closeResume"
+                aria-label="Close resume"
+            >
+                ✕
+            </button>
+
+        </div>
+
+        <iframe
+            class="resume-frame"
+            src="assets/Sourabh-Lagali-Resume.pdf"
+            title="Sourabh Lagali Resume"
+        ></iframe>
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* =========================================================
+   LOADER
+========================================================= */
+
+const loader =
+    document.getElementById("loader");
+
+const loaderProgress =
+    document.getElementById("loaderProgress");
+
+const loaderPercent =
+    document.getElementById("loaderPercent");
+
+let progress = 0;
+
+const loaderTimer =
+    setInterval(() => {
+
+        progress += Math.floor(
+            Math.random() * 10
+        ) + 2;
+
+        if (progress >= 100) {
+
+            progress = 100;
+
+            clearInterval(loaderTimer);
+
+            setTimeout(() => {
+
+                loader.classList.add("hide");
+
+            }, 350);
+
+        }
+
+        loaderProgress.style.width =
+            progress + "%";
+
+        loaderPercent.textContent =
+            progress + "%";
+
+    }, 65);
+
+
+/* =========================================================
+   YEAR
+========================================================= */
+
+document.getElementById("year")
+    .textContent =
+    new Date().getFullYear();
+
+
+/* =========================================================
+   NAV
+========================================================= */
+
+const navbar =
+    document.getElementById("navbar");
+
+window.addEventListener(
+    "scroll",
+    () => {
+
+        if (window.scrollY > 30) {
+
+            navbar.classList.add("scrolled");
+
+        } else {
+
+            navbar.classList.remove("scrolled");
+
+        }
+
+    },
+    { passive: true }
+);
+
+
+/* =========================================================
+   MOBILE MENU
+========================================================= */
+
+const mobileBtn =
+    document.getElementById("mobileBtn");
+
+const menu =
+    document.getElementById("menu");
+
+mobileBtn.addEventListener(
+    "click",
+    () => {
+
+        menu.classList.toggle("open");
+
+        mobileBtn.textContent =
+            menu.classList.contains("open")
+            ? "✕"
+            : "☰";
+
+    }
+);
+
+document
+    .querySelectorAll(".menu a")
+    .forEach(link => {
+
+        link.addEventListener(
+            "click",
+            () => {
+
+                menu.classList.remove("open");
+
+                mobileBtn.textContent =
+                    "☰";
+
+            }
+        );
+
+    });
+
+
+/* =========================================================
+   SCROLL REVEAL
+========================================================= */
+
+const observer =
+    new IntersectionObserver(
+        entries => {
+
+            entries.forEach(
+                entry => {
+
+                    if (
+                        entry.isIntersecting
+                    ) {
+
+                        entry.target
+                            .classList
+                            .add("visible");
+
+                        observer.unobserve(
+                            entry.target
+                        );
+
+                    }
+
+                }
+            );
+
+        },
+        {
+            threshold: .10
+        }
+    );
+
+document
+    .querySelectorAll(".reveal")
+    .forEach(element => {
+
+        observer.observe(element);
+
+    });
+
+
+/* =========================================================
+   CUSTOM CURSOR
+========================================================= */
+
+const cursorDot =
+    document.getElementById("cursorDot");
+
+const cursorRing =
+    document.getElementById("cursorRing");
+
+let mouseX = 0;
+let mouseY = 0;
+
+let ringX = 0;
+let ringY = 0;
+
+window.addEventListener(
+    "mousemove",
+    event => {
+
+        mouseX =
+            event.clientX;
+
+        mouseY =
+            event.clientY;
+
+        cursorDot.style.left =
+            mouseX + "px";
+
+        cursorDot.style.top =
+            mouseY + "px";
+
+    }
+);
+
+function animateCursor() {
+
+    ringX +=
+        (mouseX - ringX) * .13;
+
+    ringY +=
+        (mouseY - ringY) * .13;
+
+    cursorRing.style.left =
+        ringX + "px";
+
+    cursorRing.style.top =
+        ringY + "px";
+
+    requestAnimationFrame(
+        animateCursor
+    );
+}
+
+animateCursor();
+
+
+/* =========================================================
+   CURSOR HOVER
+========================================================= */
+
+document
+    .querySelectorAll(
+        "a, button, .skill-card, .small-project, .project"
+    )
+    .forEach(element => {
+
+        element.addEventListener(
+            "mouseenter",
+            () => {
+
+                cursorRing.classList.add(
+                    "hover"
+                );
+
+            }
+        );
+
+        element.addEventListener(
+            "mouseleave",
+            () => {
+
+                cursorRing.classList.remove(
+                    "hover"
+                );
+
+            }
+        );
+
+    });
+
+
+/* =========================================================
+   MAGNETIC BUTTONS
+========================================================= */
+
+const magneticElements =
+    document.querySelectorAll(".magnetic");
+
+magneticElements.forEach(
+    element => {
+
+        element.addEventListener(
+            "mousemove",
+            event => {
+
+                const rect =
+                    element.getBoundingClientRect();
+
+                const x =
+                    event.clientX -
+                    (rect.left + rect.width / 2);
+
+                const y =
+                    event.clientY -
+                    (rect.top + rect.height / 2);
+
+                element.style.transform =
+                    `translate(${x * .10}px, ${y * .10}px)`;
+
+            }
+        );
+
+        element.addEventListener(
+            "mouseleave",
+            () => {
+
+                element.style.transform =
+                    "";
+
+            }
+        );
+
+    }
+);
+
+
+/* =========================================================
+   SKILL CARD TILT
+========================================================= */
+
+document
+    .querySelectorAll(".skill-card")
+    .forEach(card => {
+
+        card.addEventListener(
+            "mousemove",
+            event => {
+
+                const rect =
+                    card.getBoundingClientRect();
+
+                const x =
+                    event.clientX -
+                    rect.left;
+
+                const y =
+                    event.clientY -
+                    rect.top;
+
+                const rotateY =
+                    ((x / rect.width) - .5) * 5;
+
+                const rotateX =
+                    ((y / rect.height) - .5) * -5;
+
+                card.style.transform =
+                    `
+                    translateY(-7px)
+                    rotateX(${rotateX}deg)
+                    rotateY(${rotateY}deg)
+                    `;
+
+            }
+        );
+
+        card.addEventListener(
+            "mouseleave",
+            () => {
+
+                card.style.transform =
+                    "";
+
+            }
+        );
+
+    });
+
+
+/* =========================================================
+   HERO PARALLAX
+========================================================= */
+
+const heroOrb =
+    document.querySelector(".hero-orb");
+
+const heroOrbTwo =
+    document.querySelector(".hero-orb.two");
+
+window.addEventListener(
+    "mousemove",
+    event => {
+
+        if (
+            window.innerWidth < 900
+        ) {
+            return;
+        }
+
+        const x =
+            (event.clientX /
+            window.innerWidth - .5);
+
+        const y =
+            (event.clientY /
+            window.innerHeight - .5);
+
+        heroOrb.style.transform =
+            `translate(
+                ${x * -35}px,
+                ${y * -25}px
+            )`;
+
+        heroOrbTwo.style.transform =
+            `translate(
+                ${x * 25}px,
+                ${y * 20}px
+            )`;
+
+    }
+);
+
+
+/* =========================================================
+   RESUME MODAL
+========================================================= */
+
+const resumeModal =
+    document.getElementById("resumeModal");
+
+const openResume =
+    document.getElementById("openResume");
+
+const openResume2 =
+    document.getElementById("openResume2");
+
+const openResume3 =
+    document.getElementById("openResume3");
+
+const closeResume =
+    document.getElementById("closeResume");
+
+
+function showResume() {
+
+    resumeModal.classList.add("open");
+
+    document.body.classList.add(
+        "no-scroll"
+    );
+
+}
+
+
+function hideResume() {
+
+    resumeModal.classList.remove("open");
+
+    document.body.classList.remove(
+        "no-scroll"
+    );
+
+}
+
+
+openResume.addEventListener(
+    "click",
+    showResume
+);
+
+openResume2.addEventListener(
+    "click",
+    showResume
+);
+
+openResume3.addEventListener(
+    "click",
+    showResume
+);
+
+closeResume.addEventListener(
+    "click",
+    hideResume
+);
+
+resumeModal.addEventListener(
+    "click",
+    event => {
+
+        if (
+            event.target === resumeModal
+        ) {
+
+            hideResume();
+
+        }
+
+    }
+);
+
+document.addEventListener(
+    "keydown",
+    event => {
+
+        if (
+            event.key === "Escape"
+        ) {
+
+            hideResume();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   NETWORK PARALLAX
+========================================================= */
+
+const networkStage =
+    document.querySelector(".network-stage");
+
+networkStage.addEventListener(
+    "mousemove",
+    event => {
+
+        if (
+            window.innerWidth < 900
+        ) {
+            return;
+        }
+
+        const rect =
+            networkStage.getBoundingClientRect();
+
+        const x =
+            event.clientX - rect.left;
+
+        const y =
+            event.clientY - rect.top;
+
+        const px =
+            ((x / rect.width) - .5);
+
+        const py =
+            ((y / rect.height) - .5);
+
+        const svg =
+            document.querySelector(".network-svg");
+
+        svg.style.transform =
+            `translate(
+                ${px * 12}px,
+                ${py * 12}px
+            )`;
+
+    }
+);
+
+networkStage.addEventListener(
+    "mouseleave",
+    () => {
+
+        const svg =
+            document.querySelector(".network-svg");
+
+        svg.style.transform =
+            "";
+
+    }
+);
+
+
+/* =========================================================
+   ACTIVE SECTION NAVIGATION
+========================================================= */
+
+const sections =
+    document.querySelectorAll(
+        "section[id]"
+    );
+
+const navLinks =
+    document.querySelectorAll(
+        ".menu a[href^='#']"
+    );
+
+const sectionObserver =
+    new IntersectionObserver(
+        entries => {
+
+            entries.forEach(
+                entry => {
+
+                    if (
+                        entry.isIntersecting
+                    ) {
+
+                        const id =
+                            entry.target.id;
+
+                        navLinks.forEach(
+                            link => {
+
+                                link.style.color =
+                                    link.getAttribute(
+                                        "href"
+                                    ) === "#" + id
+                                    ? "#101117"
+                                    : "";
+
+                            }
+                        );
+
+                    }
+
+                }
+            );
+
+        },
+        {
+            rootMargin:
+                "-35% 0px -55% 0px"
+        }
+    );
+
+sections.forEach(
+    section =>
+        sectionObserver.observe(section)
+);
+
+
+/* =========================================================
+   SMOOTH INTERNAL LINKS
+========================================================= */
+
+document
+    .querySelectorAll(
+        'a[href^="#"]'
+    )
+    .forEach(anchor => {
+
+        anchor.addEventListener(
+            "click",
+            function(event) {
+
+                const target =
+                    document.querySelector(
+                        this.getAttribute(
+                            "href"
+                        )
+                    );
+
+                if (target) {
+
+                    event.preventDefault();
+
+                    target.scrollIntoView({
+                        behavior: "smooth"
+                    });
+
+                }
+
+            }
+        );
+
+    });
+
+</script>
+
+</body>
+</html>  
